@@ -2,34 +2,42 @@ using UnityEngine;
 using DatabaseManager;
 using System.Collections.Generic;
 using TMPro;
+using DataUser;
+using UserSystem;
 
 public class Аuthentication : MonoBehaviour
 {
-    [SerializeField] private TMP_InputField _input1;
-    [SerializeField] private TMP_InputField _input2;
+    [SerializeField] private TMP_InputField _inputLogin;
+    [SerializeField] private TMP_InputField _inputPassword;
+    [SerializeField] private GameObject _warningLog;
 
     public void LogIn()
     {
-        List<string> resultArray1 = new List<string>(SqlQuery.ExecuteQuerySelect("SELECT login FROM Users").Split(';'));
+        List<string> resultArrayLogin = new List<string>(SqlQuery.ExecuteQuerySelect("SELECT login FROM Users", true).Split(';'));
 
-        foreach (var result in resultArray1)
+        foreach (var result in resultArrayLogin)
         {
-            if (result == _input1.text)
+            if (result == _inputLogin.text)
             {
-                List<string> resultArray2 = new List<string>(SqlQuery.ExecuteQuerySelect("SELECT password FROM Users").Split(';'));
+                List<string> resultArrayPassword = new List<string>(SqlQuery.ExecuteQuerySelect("SELECT password FROM Users", true).Split(';'));
 
-                foreach (var resultic in resultArray2)
+                foreach (var resultic in resultArrayPassword)
                 {
-                    if (resultic == _input2.text)
+                    if (resultic == _inputPassword.text)
                     {
-                        string name = _input1.text;
-                        name = name.Replace(";", "");
-                        string role = SqlQuery.ExecuteQuerySelect($"SELECT roleId FROM Users WHERE login = '{name}'");
-                        role = role.Replace(";", "");
-                        Debug.Log(role);
-                        Debug.Log(SqlQuery.ExecuteQuerySelect($"SELECT roleName FROM Roles WHERE roleId = {System.Convert.ToInt32(role)}"));
+                        _warningLog.SetActive(false);
+                        UserDataApplication.UserDataApplicationSaved(_inputLogin.text);
+                        UserSystenSettings.UserSystemScene();
+                    }
+                    else
+                    {
+                        _warningLog.SetActive(true);
                     }
                 }
+            }
+            else
+            {
+                _warningLog.SetActive(true);
             }
         }
     }

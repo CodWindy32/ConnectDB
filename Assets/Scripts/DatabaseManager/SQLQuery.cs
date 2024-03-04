@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using UnityEngine;
 
 namespace DatabaseManager
 {
     public sealed class SqlQuery:DatabaseConnection
     {
         private static string read = "";
-        public static string ExecuteQuerySelect(string querySelect)
+        public static string ExecuteQuerySelect(string querySelect, bool manySelect)
         {
             Connection();
 
@@ -19,8 +18,16 @@ namespace DatabaseManager
             while (reader.Read())
             {
                 int i = 0;
-                read = reader[i].ToString();
-                read = read.Replace(" ", "");
+                
+                if (manySelect)
+                {
+                    read = reader[i].ToString().Replace(" ", "");
+                }
+                else
+                {
+                    read = reader[i].ToString();
+                }
+
                 result.Add(read);
                 i++;
             }
