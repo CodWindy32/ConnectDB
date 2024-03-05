@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace ServiceManager
+namespace ServiceManagerTimetable
 {
     public class TimestableUserManager : MonoBehaviour
     {

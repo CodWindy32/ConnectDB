@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using System;
 
-namespace ServiceManager
+namespace ServiceManagerTimetable
 {
     public class TimestableManagerEdit : MonoBehaviour
     {

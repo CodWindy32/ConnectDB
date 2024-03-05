@@ -6,6 +6,7 @@ namespace DatabaseManager
     public sealed class SqlQuery:DatabaseConnection
     {
         private static string read = "";
+
         public static string ExecuteQuerySelect(string querySelect, bool manySelect)
         {
             Connection();
