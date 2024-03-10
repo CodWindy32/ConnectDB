@@ -16,9 +16,9 @@ namespace PersonalList
 
         public void AddPersonal()
         {
-            string role = SqlQuery.ExecuteQuerySelect($"SELECT roleId FROM Roles WHERE roleName = '{_dropdownRole.itemText}'", false);
-            SqlQuery.ExecuteQueryEditing($"INSERT INTO Timetables (fullName, age, login, password, roleId) VALUES('{inputName.text}'," +
-                $" '{Convert.ToInt32(inputAge.text)}',{inputLogin.text},{inputPassword.text},'{Convert.ToInt32(role)}')");
+            string role = SqlQuery.ExecuteQuerySelect($"SELECT roleId FROM Roles WHERE roleName = '{_dropdownRole.options[_dropdownRole.value].text}'", false);
+            SqlQuery.ExecuteQueryEditing($"INSERT INTO Users (fullName, age, login, password, roleId) VALUES('{inputName.text}'," +
+                $" '{Convert.ToInt32(inputAge.text)}','{inputLogin.text}','{inputPassword.text}','{Convert.ToInt32(role)}')");
         }
     }
 }

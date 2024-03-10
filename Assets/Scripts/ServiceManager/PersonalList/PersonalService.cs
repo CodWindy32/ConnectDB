@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace PersonalList
 {
@@ -32,6 +33,10 @@ namespace PersonalList
             ListObj.transform.GetChild(7).GetComponent<TextMeshProUGUI>().text = SqlQuery.ExecuteQuerySelect($"SELECT age FROM Users WHERE userId ='{result}'", false);
             string roleId = SqlQuery.ExecuteQuerySelect($"SELECT roleId FROM Users WHERE userId = '{Convert.ToInt32(result)}'", false);
             ListObj.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = SqlQuery.ExecuteQuerySelect($"SELECT roleName FROM Roles WHERE roleId = {Convert.ToInt32(roleId)}", false);
+            ListObj.transform.GetChild(8).GetComponent<Button>().onClick.AddListener(delegate
+            {
+                OnDeletePersonal(result);
+            });
         }
 
         public void DestroyElemntPersonal()
@@ -40,6 +45,13 @@ namespace PersonalList
             {
                 Destroy(item.gameObject);
             }
+        }
+
+        public void OnDeletePersonal(string result)
+        {
+            SqlQuery.ExecuteQueryEditing($"DELETE FROM Users WHERE userId = {result};");
+            DestroyElemntPersonal();
+            ElementDisplayPersonalList();
         }
     }
 }
