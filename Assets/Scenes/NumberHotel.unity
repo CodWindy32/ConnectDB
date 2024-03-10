@@ -2204,7 +2204,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.01355, y: 83.26047}
+  m_AnchoredPosition: {x: -0.013549805, y: 83.26047}
   m_SizeDelta: {x: 234.29, y: 292.3368}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &728987130
@@ -2845,7 +2845,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1671793093}
         m_TargetAssemblyTypeName: OrderManager.OrderScript, Assembly-CSharp
-        m_MethodName: ElementDisplayPersonalList
+        m_MethodName: DestroyElemntOrder
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2857,7 +2857,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1671793093}
         m_TargetAssemblyTypeName: OrderManager.OrderScript, Assembly-CSharp
-        m_MethodName: DestroyElemntPersonal
+        m_MethodName: ElementDisplayOrderList
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4482,6 +4482,42 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1671793094}
+        m_TargetAssemblyTypeName: OrderManager.OrderManagerAdd, Assembly-CSharp
+        m_MethodName: AddOrder
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1671793093}
+        m_TargetAssemblyTypeName: OrderManager.OrderScript, Assembly-CSharp
+        m_MethodName: DestroyElemntOrder
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1671793093}
+        m_TargetAssemblyTypeName: OrderManager.OrderScript, Assembly-CSharp
+        m_MethodName: ElementDisplayOrderList
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 728987128}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -5573,6 +5609,7 @@ GameObject:
   - component: {fileID: 1671793092}
   - component: {fileID: 1671793086}
   - component: {fileID: 1671793093}
+  - component: {fileID: 1671793094}
   m_Layer: 0
   m_Name: ScriptHolder
   m_TagString: Untagged
@@ -5620,7 +5657,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _newListObj: {fileID: 1450843159216254926, guid: 76c4a04d998388146aeb4e715acaa15a, type: 3}
-  _contentTransform: {fileID: 606901850}
+  _contentTransforOrder: {fileID: 606901850}
+--- !u!114 &1671793094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671793085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48fe90f1c2538ce46a993e0f78e429a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputName: {fileID: 1542753524}
+  _inputDesc: {fileID: 724754380}
+  _inputDate: {fileID: 705548770}
+  _inputClient: {fileID: 1643261213}
 --- !u!1 &1709765517
 GameObject:
   m_ObjectHideFlags: 0

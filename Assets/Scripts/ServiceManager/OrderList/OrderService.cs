@@ -30,7 +30,11 @@ namespace Order {
             ListObj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = SqlQuery.ExecuteQuerySelect($"SELECT description FROM Contents WHERE orderId = '{result}'", false);
             ListObj.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = SqlQuery.ExecuteQuerySelect($"SELECT dateOrder FROM Orders WHERE orderId ='{result}'", false);
             ListObj.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = SqlQuery.ExecuteQuerySelect($"SELECT count FROM Orders WHERE orderId = '{result}'", false);
-            ListObj.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = SqlQuery.ExecuteQuerySelect($"SELECT status FROM Orders WHERE orderId = '{result}'", false);
+            
+            if (ListObj.transform.GetChild(5).GetComponent<TextMeshProUGUI>() != null)
+            {
+                ListObj.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = SqlQuery.ExecuteQuerySelect($"SELECT status FROM Orders WHERE orderId = '{result}'", false);
+            }
         }
 
         public void DestroyElemntPersonal()

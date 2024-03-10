@@ -10,18 +10,33 @@ namespace OrderManager
     {
         [SerializeField] private GameObject _newListObj;
 
-        [SerializeField] private Transform _contentTransform;
+        [SerializeField] private Transform _contentTransforOrder;
 
-        List<string> resultArrayListDate = new List<string>();
-       public List<string> resultArrayOrderList = new List<string>();
+        private List<string> resultArrayListDate = new List<string>();
+        private List<string> resultArrayOrderList = new List<string>();
 
-        public void ElementDisplayPersonalList()
+        public void ElementDisplayOrderList()
         {
-            Debug.Log(UserDataApplication.userId);
             List<string> resultArrayIdList = new List<string>(SqlQuery.ExecuteQuerySelect($"SELECT dayId FROM Timetables WHERE userId = '{UserDataApplication.userId}'", true).Split(';'));
 
+           SpawnElementOrder(resultArrayIdList);
+        }
+
+        private void ExecuteElementOrderQuery(string result, GameObject ListObj)
+        {
+            ListObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = result;
+            ListObj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = SqlQuery.ExecuteQuerySelect($"SELECT title FROM Orders WHERE orderId = '{result}'", false);
+            ListObj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = SqlQuery.ExecuteQuerySelect($"SELECT description FROM Contents WHERE orderId = '{result}'", false);
+            ListObj.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = SqlQuery.ExecuteQuerySelect($"SELECT dateOrder FROM Orders WHERE orderId ='{result}'", false);
+            ListObj.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = SqlQuery.ExecuteQuerySelect($"SELECT count FROM Orders WHERE orderId = '{result}'", false);
+            ListObj.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = SqlQuery.ExecuteQuerySelect($"SELECT status FROM Orders WHERE orderId = '{result}'", false);
+        }
+
+        private void SpawnElementOrder(List<string> resultArrayIdList)
+        {
             foreach (string id in resultArrayIdList)
             {
+                Debug.Log(id);
                 string date = SqlQuery.ExecuteQuerySelect($"SELECT date FROM Days WHERE dayId = '{id}'", false);
                 resultArrayListDate.Add(date);
             }
@@ -32,33 +47,27 @@ namespace OrderManager
                 resultArrayOrderList.Add(id);
             }
 
-            foreach (string result in resultArrayOrderList)
+            foreach (string order in resultArrayOrderList)
             {
-                GameObject ListObj = Instantiate(_newListObj, _contentTransform.position, Quaternion.identity);
-                ListObj.transform.SetParent(_contentTransform);
+                if (order != "")
+                {
+                    GameObject ListObj = Instantiate(_newListObj, _contentTransforOrder.position, Quaternion.identity);
+                    ListObj.transform.SetParent(_contentTransforOrder);
 
-                ExecuteElementPersonalQuery(result, ListObj);
+                    ExecuteElementOrderQuery(order, ListObj);
+                }
             }
-
-           
         }
 
-        private void ExecuteElementPersonalQuery(string result, GameObject ListObj)
+        public void DestroyElemntOrder()
         {
-            ListObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = result;
-            ListObj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = SqlQuery.ExecuteQuerySelect($"SELECT title FROM Orders WHERE orderId = '{result}'", false);
-            ListObj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = SqlQuery.ExecuteQuerySelect($"SELECT description FROM Contents WHERE orderId = '{result}'", false);
-            ListObj.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = SqlQuery.ExecuteQuerySelect($"SELECT dateOrder FROM Orders WHERE orderId ='{result}'", false);
-            ListObj.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = SqlQuery.ExecuteQuerySelect($"SELECT count FROM Orders WHERE orderId = '{result}'", false);
-            ListObj.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = SqlQuery.ExecuteQuerySelect($"SELECT status FROM Orders WHERE orderId = '{result}'", false);
-        }
-
-        public void DestroyElemntPersonal()
-        {
-            foreach (Transform item in _contentTransform)
+            foreach (Transform item in _contentTransforOrder)
             {
                 Destroy(item.gameObject);
             }
+
+            resultArrayOrderList.Clear();
+            resultArrayListDate.Clear();
         }
     }
 }
